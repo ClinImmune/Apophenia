@@ -1922,4 +1922,36 @@ OMP_critical (fexact) //f3xact and f5exact use static vars for some state-keepin
     Apop_stopif(has_error, out->error='p'; return out, 0, "processing error; don't trust the results.");
     return out;
 }
+
+
+double
+fisher_exact_test(int *table, int *num_rows, int *num_columns)
+{
+    double  prt, p_value,
+            expect  = -1,
+            percent = 80,
+            emin    = 1;
+    int     *ld_table,
+            workspace = 200000,
+            mult      = 30;
+
+    if (*num_rows < *num_columns)
+        ld_table = num_rows;
+    else
+        ld_table = num_columns;
+    fexact(num_rows, 
+       num_columns,
+       table,
+       ld_table,
+       // Cochran condition for asym.chisq. decision:
+       &expect,
+       &percent,
+       &emin,
+       &prt,
+       &p_value,
+       &workspace,
+       &mult);
+    return p_value;
+}
+
 #endif /* not USING_R */

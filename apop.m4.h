@@ -423,7 +423,9 @@ double apop_matrix_mean(const gsl_matrix *data);
 void apop_matrix_mean_and_var(const gsl_matrix *data, double *mean, double *var);
 apop_data * apop_data_summarize(apop_data *data);
 
-apop_data *apop_test_fisher_exact(apop_data *intab); //in apop_fisher.c
+//in apop_fexact.c
+double fisher_exact_test(int *table, int *num_rows, int *num_columns);
+apop_data *apop_test_fisher_exact(apop_data *intab);
 
 //from apop_t_f_chi.c:
 Apop_var_declare( int apop_matrix_is_positive_semidefinite(gsl_matrix *m, char semi) )
